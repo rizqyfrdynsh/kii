@@ -1,0 +1,14 @@
+# hasil build & cadangan lokal (riwayat ada di git)
+dist/
+checkpoint/
+# skrip deploy berisi alamat server pribadi
+deploy.py
+# lagu berhak cipta dan foto pribadi: jangan masuk repo publik
+musik/
+img/
+# data runtime server (RSVP, kata sandi)
+data/
+*.env
+.env
+auth.json
+rsvp.json

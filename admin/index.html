@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Admin Undangan · Rizqy &amp; Tasya</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3a0f17">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23842f35'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Georgia,serif' font-size='23' font-style='italic' fill='%23f6d9c8'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kertas: #f6f0e4; --kertas-2: #efe6d3; --kertas-3: #fbf8f0;
+    --tinta: #2b1a1a; --tinta-2: #6b5450; --anggur: #7b1e2b; --terakota: #a0493c;
+    --emas: #b99a5b; --emas-2: #e4cf9a; --hutan: #4a1a22; --hutan-2: #2f0f15;
+    --garis: rgba(43, 26, 26, .16);
+    --serif: 'Cormorant Garamond', 'Times New Roman', serif; --sans: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { color-scheme: light; background: #2f0f15; }
+  body {
+    min-height: 100vh; color: var(--kertas); font: 300 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, #6a1f2e, transparent 70%), linear-gradient(180deg, #4a121c, #2f0f15) fixed;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  :focus-visible { outline: 2px solid var(--emas-2); outline-offset: 2px; }
+  .bungkus { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 34px 0 90px; }
+  .kepala { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+  .label { font: 400 11px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--emas-2); }
+  h1 { margin-top: 10px; font: 500 clamp(34px, 6vw, 52px)/1.05 var(--serif); }
+  h1 em { font-style: italic; color: var(--emas-2); }
+  h2 { font: 500 24px/1.2 var(--serif); color: var(--tinta); }
+  .kartu { background: var(--kertas-3); color: var(--tinta); padding: clamp(18px, 3vw, 28px); margin-bottom: 18px; box-shadow: 0 18px 30px -22px rgba(0, 0, 0, .6); }
+  .kartu > p.ket { margin-top: 6px; font-size: 14px; color: var(--tinta-2); }
+  .gap { display: grid; gap: 12px; margin-top: 14px; }
+  label.f { display: block; font: 400 11px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--terakota); margin-bottom: 7px; }
+  input[type=text], input[type=search], input[type=tel], input[type=password], textarea {
+    width: 100%; padding: 11px 13px; background: #fff; border: 1px solid var(--garis); border-radius: 3px; color: var(--tinta); font-size: 15px;
+  }
+  textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+  input:focus, textarea:focus { outline: none; border-color: var(--anggur); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 1px solid var(--anggur); color: var(--anggur);
+    font: 400 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; background: transparent; text-decoration: none; transition: background .2s, color .2s;
+  }
+  .btn:hover { background: var(--anggur); color: var(--kertas); }
+  .btn.solid { background: var(--anggur); color: var(--kertas); }
+  .btn.solid:hover { background: #5f1621; }
+  .btn.kecil { min-height: 34px; padding: 0 12px; font-size: 10px; }
+  .btn.terang { border-color: var(--emas-2); color: var(--emas-2); }
+  .btn.terang:hover { background: var(--emas-2); color: var(--hutan-2); }
+  .btn.bahaya { border-color: #a33; color: #a33; }
+  .btn.bahaya:hover { background: #a33; color: #fff; }
+  .aksi-baris { display: flex; flex-wrap: wrap; gap: 8px; }
+  details > summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::after { content: '+'; font: 400 24px/1 var(--serif); color: var(--anggur); }
+  details[open] > summary::after { content: '–'; }
+  .pratinjau { margin-top: 12px; padding: 14px; background: var(--kertas-2); font-size: 13.5px; white-space: pre-wrap; color: var(--tinta-2); border-left: 3px solid var(--emas); }
+  .statistik { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 13px; color: var(--tinta-2); margin-top: 6px; }
+  .statistik b { color: var(--anggur); font-weight: 500; font-size: 15px; }
+  .alat { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin: 16px 0 6px; }
+  .alat input[type=search] { max-width: 280px; }
+  .daftar { display: grid; gap: 10px; margin-top: 10px; }
+  .tamu { display: grid; grid-template-columns: 34px minmax(0, 1.1fr) minmax(0, 1.4fr) auto; gap: 8px 14px; align-items: center; padding: 12px 14px; background: #fff; border: 1px solid var(--garis); }
+  .tamu.terkirim { background: #f2f7ef; border-color: #b9cdb0; }
+  .tamu .no { font: 500 12px/1 var(--sans); color: var(--emas); text-align: center; }
+  .tamu .nama { font: 500 19px/1.2 var(--serif); overflow-wrap: anywhere; }
+  .tamu .wa { margin-top: 6px; max-width: 190px; padding: 6px 9px; font-size: 13px; }
+  .tamu code { display: block; font: 400 12px/1.5 ui-monospace, Consolas, monospace; color: var(--tinta-2); overflow-wrap: anywhere; }
+  .tamu .peringatan { margin-top: 4px; font-size: 12px; color: #a33; }
+  .tamu .tombol { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; align-items: center; }
+  .centang { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tinta-2); cursor: pointer; padding: 0 4px; }
+  .kosong { padding: 26px; text-align: center; color: var(--tinta-2); font: italic 500 20px/1.4 var(--serif); }
+  .toast { position: fixed; left: 50%; bottom: 24px; z-index: 50; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 20px; background: var(--hutan-2); color: var(--kertas); border: 1px solid var(--emas); font-size: 13px; letter-spacing: .08em; transition: opacity .3s, transform .4s; }
+  .toast.tampil { opacity: 1; transform: translate(-50%, 0); }
+  [hidden] { display: none !important; }
+  .rsvp-baris { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr) auto; gap: 8px 14px; align-items: start; padding: 12px 14px; background: #fff; border: 1px solid var(--garis); }
+  .rsvp-baris.sembunyi { opacity: .55; background: #f1ece2; }
+  .rsvp-baris .n { font: 500 18px/1.2 var(--serif); overflow-wrap: anywhere; }
+  .rsvp-baris .w { margin-top: 3px; font-size: 12px; color: var(--tinta-2); }
+  .rsvp-baris .u { font-size: 14.5px; color: var(--tinta); white-space: pre-line; overflow-wrap: anywhere; }
+  .rsvp-baris .u.kosong-u { color: #9a8f88; font-style: italic; }
+  .rsvp-baris .tb { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+  .badge { display: inline-block; padding: 2px 8px; font: 500 10px/1.6 var(--sans); letter-spacing: .14em; text-transform: uppercase; border: 1px solid; }
+  .badge.hadir { color: #2f6b3a; border-color: #a9cdb0; background: #eef7ef; }
+  .badge.tidak { color: #8a4a1f; border-color: #e0c3a6; background: #fbf1e6; }
+  .rsvp-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-top: 12px; }
+  .rsvp-bar > div { flex: 1 1 220px; }
+  .tamu .rsvp-info { margin-top: 6px; }
+  dialog { border: 0; padding: 0; background: transparent; color: var(--tinta); max-width: 100vw; max-height: 100vh; }
+  dialog::backdrop { background: rgba(30, 8, 12, .78); }
+  dialog[open] { margin: auto; }
+  #dlg-sandi form { width: min(92vw, 420px); background: var(--kertas-3); padding: 26px 24px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7); }
+  .sandi-pesan { min-height: 20px; font-size: 13px; color: #a33; }
+  .tab { position: sticky; top: 0; z-index: 20; display: flex; gap: 6px; padding: 8px; margin: 0 -8px 18px; background: rgba(47, 15, 21, .92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); overflow-x: auto; }
+  .tab button { flex: 1 1 auto; white-space: nowrap; min-height: 44px; padding: 0 16px; border: 1px solid rgba(228, 207, 154, .45); color: var(--emas-2); font: 400 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; transition: background .2s, color .2s; }
+  .tab button[aria-selected="true"] { background: var(--emas-2); color: var(--hutan-2); border-color: var(--emas-2); }
+  .tab button { padding: 0 12px; letter-spacing: .14em; }
+  .tab .n { margin-left: 6px; font-weight: 500; letter-spacing: 0; }
+  @media (max-width: 760px) {
+    .rsvp-baris { grid-template-columns: 1fr; }
+    .rsvp-baris .tb { justify-content: flex-start; }
+    .tamu { grid-template-columns: 28px 1fr; }
+    .tamu .tautan, .tamu .tombol { grid-column: 1 / -1; }
+    .tamu .tombol { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<main class="bungkus">
+  <header class="kepala">
+    <div>
+      <span class="label">Portal Admin</span>
+      <h1>Undangan <em>Rizqy &amp; Tasya</em></h1>
+    </div>
+    <div class="aksi-baris"><a class="btn terang" id="lihat" href="/" target="_blank" rel="noopener">Lihat undangan</a><button class="btn terang" id="buka-sandi" type="button">Ganti kata sandi</button><button class="btn terang" id="keluar" type="button">Keluar</button></div>
+  </header>
+
+  <nav class="tab" role="tablist" aria-label="Bagian admin">
+    <button type="button" role="tab" data-tab="tamu" id="tab-tamu">Tamu <b class="n" id="n-tamu"></b></button>
+    <button type="button" role="tab" data-tab="rsvp" id="tab-rsvp">RSVP <b class="n" id="n-rsvp"></b></button>
+    <button type="button" role="tab" data-tab="pengaturan" id="tab-pengaturan">Setelan</button>
+  </nav>
+
+  <section class="kartu" data-panel="tamu">
+    <h2>Tambah tamu</h2>
+    <p class="ket">Satu tamu per baris. Boleh menyertakan nomor WhatsApp dengan tanda <b>|</b>, contoh: <code>Bapak Budi &amp; Keluarga | 0812 3456 7890</code></p>
+    <div class="gap">
+      <textarea id="masuk" placeholder="Nama tamu (satu per baris)" aria-label="Daftar nama tamu"></textarea>
+      <div class="aksi-baris">
+        <button class="btn solid" id="tambah" type="button">Tambahkan &amp; buat tautan</button>
+        <label class="btn" for="berkas">Impor CSV</label>
+        <input id="berkas" type="file" accept=".csv,text/csv,text/plain" hidden>
+      </div>
+    </div>
+  </section>
+
+  <section class="kartu" data-panel="pengaturan">
+    <details id="pengaturan" open>
+      <summary><h2>Pengaturan pesan &amp; alamat</h2></summary>
+      <div class="gap">
+        <div>
+          <label class="f" for="base">Alamat undangan</label>
+          <input type="text" id="base" autocomplete="off" spellcheck="false">
+        </div>
+        <div>
+          <label class="f" for="templat">Templat pesan WhatsApp &mdash; pakai {nama} dan {link}</label>
+          <textarea id="templat" style="min-height:230px"></textarea>
+        </div>
+        <div class="pratinjau" id="pratinjau" aria-live="polite"></div>
+        <div class="aksi-baris"><button class="btn kecil" id="reset-templat" type="button">Kembalikan templat awal</button></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="kartu" data-panel="rsvp">
+    <h2>Rekap RSVP &amp; ucapan</h2>
+    <p class="ket">Konfirmasi yang masuk dari form di undangan.</p>
+    <div class="rsvp-bar">
+      <div class="aksi-baris">
+        <button class="btn solid" id="muat-rsvp" type="button">Segarkan</button>
+        <button class="btn" id="ekspor-rsvp" type="button" disabled>Ekspor CSV</button>
+      </div>
+    </div>
+    <div class="statistik" id="stat-rsvp"></div>
+    <div class="alat" id="alat-rsvp" hidden>
+      <input type="search" id="cari-rsvp" placeholder="Cari nama atau isi ucapan" aria-label="Cari konfirmasi">
+      <div class="aksi-baris">
+        <button class="btn kecil" data-saring="semua" type="button">Semua</button>
+        <button class="btn kecil" data-saring="Hadir" type="button">Hadir</button>
+        <button class="btn kecil" data-saring="Berhalangan hadir" type="button">Berhalangan</button>
+        <button class="btn kecil" data-saring="ucapan" type="button">Dengan ucapan</button>
+      </div>
+    </div>
+    <div class="daftar" id="daftar-rsvp"></div>
+  </section>
+
+  <section class="kartu" data-panel="tamu">
+    <h2>Daftar tamu</h2>
+    <div class="statistik" id="statistik"></div>
+    <div class="alat">
+      <input type="search" id="cari" placeholder="Cari nama atau nomor" aria-label="Cari tamu">
+      <select id="filter-tamu" aria-label="Saring tamu" style="padding:9px 10px;border:1px solid var(--garis);background:#fff;font:inherit;font-size:14px;color:var(--tinta)">
+        <option value="semua">Semua tamu</option><option value="belum">Belum konfirmasi</option><option value="sudah">Sudah konfirmasi</option><option value="kirim">Belum dikirimi undangan</option>
+      </select>
+      <div class="aksi-baris">
+        <button class="btn kecil" id="salin-semua" type="button">Salin semua tautan</button>
+        <button class="btn kecil" id="ekspor" type="button">Ekspor CSV</button>
+        <button class="btn kecil bahaya" id="hapus-semua" type="button">Hapus semua</button>
+      </div>
+    </div>
+    <div class="daftar" id="daftar"></div>
+  </section>
+</main>
+<dialog id="dlg-sandi" aria-labelledby="dlg-judul">
+  <form method="dialog" id="form-sandi" autocomplete="off">
+    <h2 id="dlg-judul">Ganti kata sandi</h2>
+    <p class="ket">Perangkat lain yang sedang masuk akan keluar otomatis dan perlu masuk lagi dengan sandi baru.</p>
+    <div class="gap">
+      <div><label class="f" for="sandi-lama">Kata sandi sekarang</label><input type="password" id="sandi-lama" autocomplete="current-password" required></div>
+      <div><label class="f" for="sandi-baru">Kata sandi baru (minimal 8 karakter)</label><input type="password" id="sandi-baru" autocomplete="new-password" minlength="8" required></div>
+      <div><label class="f" for="sandi-ulang">Ulangi kata sandi baru</label><input type="password" id="sandi-ulang" autocomplete="new-password" minlength="8" required></div>
+      <div class="sandi-pesan" id="sandi-pesan" role="alert"></div>
+      <div class="aksi-baris">
+        <button class="btn solid" id="ganti-sandi" type="submit">Simpan</button>
+        <button class="btn" id="batal-sandi" type="button">Batal</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const KUNCI = 'undangan-admin-v1';
+  const TEMPLAT_AWAL = [
+    "Assalamu'alaikum Wr. Wb.",
+    '',
+    'Kepada Yth. {nama}',
+    '',
+    'Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada pernikahan kami:',
+    '',
+    'Rizqy & Tasya',
+    'Sabtu, 14 Agustus 2027',
+    '',
+    'Detail acara dan konfirmasi kehadiran dapat dibuka melalui tautan berikut:',
+    '{link}',
+    '',
+    'Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.',
+    '',
+    "Wassalamu'alaikum Wr. Wb.",
+    'Rizqy & Tasya'
+  ].join('\n');
+
+  const $ = (s) => document.querySelector(s);
+  const el = (tag, kelas, teks) => { const e = document.createElement(tag); if (kelas) e.className = kelas; if (teks != null) e.textContent = teks; return e; };
+
+  let data = { base: location.origin + '/', template: TEMPLAT_AWAL, tamu: [] };
+  try {
+    const t = JSON.parse(localStorage.getItem(KUNCI));
+    if (t && Array.isArray(t.tamu)) data = Object.assign(data, t);
+  } catch (e) { /* data rusak / mode privat: mulai kosong */ }
+  const simpan = () => { try { localStorage.setItem(KUNCI, JSON.stringify(data)); } catch (e) { toast('Penyimpanan browser tidak tersedia'); } };
+
+  const id = () => Math.random().toString(36).slice(2, 9);
+  const normWa = (v) => {
+    let n = String(v || '').replace(/[^\d+]/g, '').replace(/^\+/, '');
+    if (n.startsWith('0')) n = '62' + n.slice(1); else if (n.startsWith('8')) n = '62' + n;
+    return n.length >= 9 ? n : '';
+  };
+  const baseUrl = () => {
+    let b = (data.base || '').trim() || (location.origin + '/');
+    if (!/^https?:\/\//i.test(b)) b = 'https://' + b;
+    return b.replace(/[?#].*$/, '').replace(/\/?$/, '/');
+  };
+  const tautan = (nama) => baseUrl() + '?to=' + encodeURIComponent(nama);
+  const pesan = (nama) => data.template.split('{nama}').join(nama).split('{link}').join(tautan(nama));
+
+  let tt;
+  function toast(teks) { const t = $('#toast'); t.textContent = teks; t.classList.add('tampil'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('tampil'), 1900); }
+  const salin = async (teks, ket) => {
+    try { await navigator.clipboard.writeText(teks); }
+    catch (e) {
+      const a = document.createElement('textarea'); a.value = teks; a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select();
+      try { document.execCommand('copy'); } catch (e2) { /* biarkan */ } a.remove();
+    }
+    toast(ket || 'Tersalin');
+  };
+
+  /* ---------- tambah tamu ---------- */
+  const tambahTamu = (nama, wa) => {
+    nama = String(nama || '').replace(/\s+/g, ' ').trim();
+    if (!nama) return 'kosong';
+    if (data.tamu.some((t) => t.nama.toLowerCase() === nama.toLowerCase())) return 'dobel';
+    data.tamu.push({ id: id(), nama, wa: normWa(wa), kirim: false });
+    return 'baru';
+  };
+  const olahBaris = (baris) => {
+    const hasil = { baru: 0, dobel: 0 };
+    baris.forEach((b) => { const [n, w] = b; const r = tambahTamu(n, w); if (r === 'baru') hasil.baru++; else if (r === 'dobel') hasil.dobel++; });
+    return hasil;
+  };
+  $('#tambah').addEventListener('click', () => {
+    const baris = $('#masuk').value.split(/\r?\n/).map((s) => s.trim()).filter(Boolean).map((s) => s.split(/\s*[|\t]\s*/));
+    if (!baris.length) { toast('Isi nama tamu dulu'); return; }
+    const h = olahBaris(baris);
+    simpan(); render();
+    $('#masuk').value = '';
+    toast(h.baru + ' tamu ditambahkan' + (h.dobel ? ', ' + h.dobel + ' dobel dilewati' : ''));
+  });
+
+  /* ---------- CSV ---------- */
+  const csvSel = (v) => '"' + String(v).replace(/"/g, '""') + '"';
+  const parseCsv = (teks) => {
+    const baris = []; let sel = '', row = [], q = false;
+    for (let i = 0; i < teks.length; i++) {
+      const c = teks[i];
+      if (q) { if (c === '"') { if (teks[i + 1] === '"') { sel += '"'; i++; } else q = false; } else sel += c; }
+      else if (c === '"') q = true;
+      else if (c === ',' || c === ';') { row.push(sel); sel = ''; }
+      else if (c === '\n') { row.push(sel); baris.push(row); row = []; sel = ''; }
+      else if (c !== '\r') sel += c;
+    }
+    if (sel || row.length) { row.push(sel); baris.push(row); }
+    return baris;
+  };
+  $('#berkas').addEventListener('change', async (e) => {
+    const f = e.target.files[0]; e.target.value = '';
+    if (!f) return;
+    let baris = parseCsv((await f.text()).replace(/^﻿/, '')).filter((r) => r.some((x) => x.trim()));
+    if (baris.length && /^(nama|name)$/i.test((baris[0][0] || '').trim())) baris = baris.slice(1);
+    const h = olahBaris(baris.map((r) => [r[0], r[1]]));
+    simpan(); render();
+    toast(h.baru + ' tamu diimpor' + (h.dobel ? ', ' + h.dobel + ' dobel dilewati' : ''));
+  });
+  $('#ekspor').addEventListener('click', () => {
+    if (!data.tamu.length) { toast('Belum ada tamu'); return; }
+    const isi = ['nama,wa,tautan,terkirim'].concat(data.tamu.map((t) => [csvSel(t.nama), csvSel(t.wa), csvSel(tautan(t.nama)), t.kirim ? 'ya' : 'belum'].join(','))).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + isi], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'tamu-undangan.csv'; document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  $('#salin-semua').addEventListener('click', () => {
+    if (!data.tamu.length) { toast('Belum ada tamu'); return; }
+    salin(data.tamu.map((t) => t.nama + ': ' + tautan(t.nama)).join('\n'), data.tamu.length + ' tautan tersalin');
+  });
+  $('#hapus-semua').addEventListener('click', () => {
+    if (!data.tamu.length) return;
+    if (confirm('Hapus semua ' + data.tamu.length + ' tamu dari daftar ini?')) { data.tamu = []; simpan(); render(); }
+  });
+
+  /* ---------- pengaturan ---------- */
+  const pratinjau = () => { $('#pratinjau').textContent = pesan(data.tamu.length ? data.tamu[0].nama : 'Nama Tamu'); };
+  $('#base').value = data.base; $('#templat').value = data.template;
+  $('#base').addEventListener('input', (e) => { data.base = e.target.value; simpan(); render(); });
+  $('#templat').addEventListener('input', (e) => { data.template = e.target.value; simpan(); pratinjau(); });
+  $('#reset-templat').addEventListener('click', () => { data.template = TEMPLAT_AWAL; $('#templat').value = TEMPLAT_AWAL; simpan(); pratinjau(); });
+  $('#cari').addEventListener('input', () => render());
+  $('#filter-tamu').addEventListener('change', () => render());
+
+  /* ---------- tampilan daftar ---------- */
+  function render() {
+    const q = $('#cari').value.trim().toLowerCase();
+    const w = $('#daftar'); w.textContent = '';
+    const terkirim = data.tamu.filter((t) => t.kirim).length;
+    $('#statistik').textContent = '';
+    [['Total', data.tamu.length], ['Terkirim', terkirim], ['Belum', data.tamu.length - terkirim]].forEach(([k, v]) => {
+      const s = el('span', '', k + ' '); s.appendChild(el('b', '', v)); $('#statistik').appendChild(s);
+    });
+    $('#lihat').href = baseUrl();
+    $('#n-tamu').textContent = data.tamu.length ? '(' + data.tamu.length + ')' : '';
+    const fl = $('#filter-tamu').value;
+    const daftar = data.tamu.filter((t) => (!q || t.nama.toLowerCase().includes(q) || (t.wa || '').includes(q.replace(/\D/g, '') || '\u0000')) &&
+      (fl === 'semua' || (fl === 'belum' && !rsvpPeta.has(t.nama.toLowerCase())) || (fl === 'sudah' && rsvpPeta.has(t.nama.toLowerCase())) || (fl === 'kirim' && !t.kirim)));
+    if (!daftar.length) { w.appendChild(el('div', 'kosong', data.tamu.length ? 'Tidak ada yang cocok.' : 'Belum ada tamu. Tambahkan nama di atas.')); pratinjau(); return; }
+    daftar.forEach((t) => {
+      const r = el('div', 'tamu' + (t.kirim ? ' terkirim' : ''));
+      r.appendChild(el('div', 'no', data.tamu.indexOf(t) + 1));
+      const info = el('div'); info.appendChild(el('div', 'nama', t.nama));
+      const rv = rsvpPeta.get(t.nama.toLowerCase());
+      if (rv) { const bd = el('span', 'badge ' + (rv.hadir === 'Hadir' ? 'hadir' : 'tidak'), rv.hadir === 'Hadir' ? 'Hadir ' + rv.jumlah + ' org' : 'Berhalangan'); const w = el('div', 'rsvp-info'); w.appendChild(bd); info.appendChild(w); }
+      const wa = el('input'); wa.type = 'tel'; wa.className = 'wa'; wa.placeholder = 'No. WhatsApp'; wa.value = t.wa || ''; wa.setAttribute('aria-label', 'Nomor WhatsApp ' + t.nama);
+      wa.addEventListener('change', () => { t.wa = normWa(wa.value); wa.value = t.wa; simpan(); });
+      info.appendChild(wa); r.appendChild(info);
+      const lk = el('div', 'tautan'); lk.appendChild(el('code', '', tautan(t.nama)));
+      if (t.nama.length > 60) lk.appendChild(el('div', 'peringatan', 'Nama lebih dari 60 karakter, di undangan akan terpotong.'));
+      r.appendChild(lk);
+      const tb = el('div', 'tombol');
+      const b = (teks, kelas, fn) => { const x = el('button', 'btn kecil ' + kelas, teks); x.type = 'button'; x.addEventListener('click', fn); tb.appendChild(x); return x; };
+      b('Salin tautan', '', () => salin(tautan(t.nama), 'Tautan ' + t.nama + ' tersalin'));
+      b('Salin pesan', '', () => salin(pesan(t.nama), 'Pesan tersalin'));
+      b('Kirim WA', 'solid', () => {
+        const url = 'https://wa.me/' + (t.wa || '') + '?text=' + encodeURIComponent(pesan(t.nama));
+        window.open(url, '_blank', 'noopener');
+        t.kirim = true; simpan(); render();
+      });
+      const a = el('a', 'btn kecil', 'Lihat'); a.href = tautan(t.nama); a.target = '_blank'; a.rel = 'noopener'; tb.appendChild(a);
+      const cl = el('label', 'centang'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = !!t.kirim;
+      cb.addEventListener('change', () => { t.kirim = cb.checked; simpan(); render(); });
+      cl.append(cb, document.createTextNode('Terkirim')); tb.appendChild(cl);
+      b('Hapus', 'bahaya', () => { data.tamu = data.tamu.filter((x) => x.id !== t.id); simpan(); render(); });
+      r.appendChild(tb); w.appendChild(r);
+    });
+    pratinjau();
+  }
+
+  /* ---------- rekap RSVP & ucapan dari server ---------- */
+  let rsvpData = [], rsvpPeta = new Map(), saring = 'semua';
+  const panggil = async (path, badan) => {
+    const r = await fetch(path, { method: badan ? 'POST' : 'GET', headers: { 'Content-Type': 'application/json' }, body: badan ? JSON.stringify(badan) : undefined });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 401) { location.reload(); throw new Error('Sesi berakhir'); }
+    if (!r.ok) throw new Error(j.pesan || 'Gagal (' + r.status + ')');
+    return j;
+  };
+  const waktuLokal = (iso) => new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Makassar' }).format(new Date(iso)) + ' WITA';
+  function renderRsvp() {
+    const w = $('#daftar-rsvp'); w.textContent = '';
+    document.querySelectorAll('#alat-rsvp [data-saring]').forEach((b) => b.classList.toggle('solid', b.dataset.saring === saring));
+    const qr = $('#cari-rsvp').value.trim().toLowerCase();
+    const daftar = rsvpData.filter((x) => (saring === 'semua' || (saring === 'ucapan' ? x.ucapan : x.hadir === saring)) && (!qr || x.nama.toLowerCase().includes(qr) || (x.ucapan || '').toLowerCase().includes(qr)));
+    if (!daftar.length) { w.appendChild(el('div', 'kosong', rsvpData.length ? 'Tidak ada yang cocok.' : 'Belum ada konfirmasi masuk.')); return; }
+    daftar.forEach((x) => {
+      const r = el('div', 'rsvp-baris' + (x.tersembunyi ? ' sembunyi' : ''));
+      const kiri = el('div'); kiri.appendChild(el('div', 'n', x.nama));
+      const wk = el('div', 'w'); wk.appendChild(el('span', 'badge ' + (x.hadir === 'Hadir' ? 'hadir' : 'tidak'), x.hadir === 'Hadir' ? 'Hadir · ' + x.jumlah + ' orang' : 'Berhalangan'));
+      wk.appendChild(document.createTextNode('  ' + waktuLokal(x.diperbarui || x.waktu)));
+      kiri.appendChild(wk); r.appendChild(kiri);
+      r.appendChild(el('div', 'u' + (x.ucapan ? '' : ' kosong-u'), x.ucapan || 'Tanpa ucapan'));
+      const tb = el('div', 'tb');
+      const tombol = (t, k, fn) => { const b = el('button', 'btn kecil ' + k, t); b.type = 'button'; b.addEventListener('click', fn); tb.appendChild(b); };
+      if (x.ucapan) tombol(x.tersembunyi ? 'Tampilkan' : 'Sembunyikan', '', async () => {
+        try { await panggil('/api/admin/sembunyi', { id: x.id, tersembunyi: !x.tersembunyi }); x.tersembunyi = !x.tersembunyi; renderRsvp(); } catch (e) { toast(e.message); }
+      });
+      tombol('Hapus', 'bahaya', async () => {
+        if (!confirm('Hapus konfirmasi dari ' + x.nama + '?')) return;
+        try { await panggil('/api/admin/hapus', { id: x.id }); rsvpData = rsvpData.filter((d) => d.id !== x.id); segarkanPeta(); renderRsvp(); render(); } catch (e) { toast(e.message); }
+      });
+      r.appendChild(tb); w.appendChild(r);
+    });
+  }
+  function segarkanPeta() { rsvpPeta = new Map(rsvpData.map((x) => [x.nama.toLowerCase(), x])); }
+  async function muatRsvp() {
+    try {
+      const j = await panggil('/api/admin/rsvp');
+      rsvpData = j.item; segarkanPeta();
+      const st = $('#stat-rsvp'); st.textContent = '';
+      [['Konfirmasi', j.ringkas.total], ['Hadir', j.ringkas.hadir], ['Berhalangan', j.ringkas.berhalangan], ['Total orang hadir', j.ringkas.orang], ['Ucapan', j.ringkas.ucapan]].forEach(([k, v]) => {
+        const s = el('span', '', k + ' '); s.appendChild(el('b', '', v)); st.appendChild(s);
+      });
+      $('#alat-rsvp').hidden = false; $('#ekspor-rsvp').disabled = false;
+      $('#n-rsvp').textContent = '(' + j.ringkas.total + ')';
+      renderRsvp(); render();
+    } catch (e) { toast(e.message); }
+  }
+  $('#muat-rsvp').addEventListener('click', muatRsvp);
+  $('#cari-rsvp').addEventListener('input', () => renderRsvp());
+  document.querySelectorAll('#alat-rsvp [data-saring]').forEach((b) => b.addEventListener('click', () => { saring = b.dataset.saring; renderRsvp(); }));
+  $('#ekspor-rsvp').addEventListener('click', () => {
+    const isi = ['nama,status,jumlah,ucapan,waktu,tersembunyi'].concat(rsvpData.map((x) => [csvSel(x.nama), x.hadir, x.jumlah, csvSel(x.ucapan || ''), x.diperbarui || x.waktu, x.tersembunyi ? 'ya' : 'tidak'].join(','))).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['\uFEFF' + isi], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'rsvp-undangan.csv'; document.body.appendChild(a); a.click(); a.remove();
+  });
+  muatRsvp();
+  const dlg = $('#dlg-sandi');
+  let mulaiDiLatar = false;   // tutup lewat latar hanya kalau tekan DAN lepas di latar (bukan saat memilih teks dalam kotak)
+  $('#buka-sandi').addEventListener('click', () => { $('#form-sandi').reset(); $('#sandi-pesan').textContent = ''; dlg.showModal(); $('#sandi-lama').focus(); });
+  $('#batal-sandi').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('mousedown', (e) => { mulaiDiLatar = e.target === dlg; });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg && mulaiDiLatar) dlg.close(); });
+  $('#keluar').addEventListener('click', async () => { try { await fetch('/api/logout', { method: 'POST' }); } catch (e) { /* tetap muat ulang */ } location.reload(); });
+  $('#form-sandi').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pesan = $('#sandi-pesan'), tombol = $('#ganti-sandi');
+    pesan.textContent = '';
+    if ($('#sandi-baru').value !== $('#sandi-ulang').value) { pesan.textContent = 'Kata sandi baru dan pengulangannya tidak sama.'; return; }
+    tombol.disabled = true;
+    try {
+      await panggil('/api/admin/sandi', { lama: $('#sandi-lama').value, baru: $('#sandi-baru').value });
+      dlg.close(); $('#form-sandi').reset(); toast('Kata sandi diganti');
+    } catch (err) { pesan.textContent = err.message; }
+    tombol.disabled = false;
+  });
+
+  /* tab: daftar tamu / RSVP / pengaturan (supaya daftar tamu tidak terdorong ke bawah oleh ratusan RSVP) */
+  const panelAktif = (nama) => {
+    document.querySelectorAll('[data-panel]').forEach((e) => { e.hidden = e.dataset.panel !== nama; });
+    document.querySelectorAll('.tab [data-tab]').forEach((b) => { const on = b.dataset.tab === nama; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
+    try { localStorage.setItem('undangan-admin-tab', nama); } catch (e) { /* privat */ }
+    window.scrollTo({ top: 0 });
+  };
+  document.querySelectorAll('.tab [data-tab]').forEach((b) => b.addEventListener('click', () => panelAktif(b.dataset.tab)));
+  let tabAwal = 'tamu'; try { tabAwal = localStorage.getItem('undangan-admin-tab') || 'tamu'; } catch (e) { /* privat */ }
+  panelAktif(['tamu', 'rsvp', 'pengaturan'].includes(tabAwal) ? tabAwal : 'tamu');
+  window.scrollTo({ top: 0 });
+  render();
+})();
+</script>
+</body>
+</html>
