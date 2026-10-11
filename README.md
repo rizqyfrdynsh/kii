@@ -3,6 +3,7 @@
 Web undangan satu halaman + portal admin + server kecil (Node tanpa dependensi).
 
 - `index.html` : SUMBER undangan (satu berkas: CSS + JS inline). Data ada di objek `UNDANGAN` di bagian script.
+- `v2/index.html` : VERSI 2 undangan (desain alternatif, satu berkas, data `UNDANGAN` sama), tampil di `/v2/`.
 - `admin/index.html` : portal admin (login kata sandi, generator tautan tamu, rekap RSVP & ucapan).
 - `server.js` : server statis + API (`/api/rsvp`, `/api/ucapan`, `/api/login`, `/api/admin/*`), kompres brotli/gzip, HTTP Range.
 - `bangun.py` : memecah `index.html` menjadi `dist/index.html` + `dist/aset/*.css|js` ber-hash (cache setahun).

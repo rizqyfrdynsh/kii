@@ -57,6 +57,8 @@ def main():
         shutil.copytree(os.path.join(AKAR, 'img'), os.path.join(DIST, 'img'))
     if os.path.isdir(os.path.join(AKAR, 'musik')):   # lagu latar (opsional)
         shutil.copytree(os.path.join(AKAR, 'musik'), os.path.join(DIST, 'musik'))
+    if os.path.isdir(os.path.join(AKAR, 'v2')):   # versi 2 (satu berkas, disalin apa adanya) -> /v2/
+        shutil.copytree(os.path.join(AKAR, 'v2'), os.path.join(DIST, 'v2'))
     io.open(os.path.join(DIST, 'index.html'), 'w', encoding='utf-8', newline='').write(out)
 
     kb = lambda t: round(len(t.encode('utf-8')) / 1024, 1)
